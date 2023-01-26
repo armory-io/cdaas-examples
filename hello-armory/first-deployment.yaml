@@ -3,11 +3,11 @@ kind: kubernetes
 application: potato-facts
 targets:
   staging:
-    account: dev
+    account: dev-cluster
     namespace: potato-facts-staging
     strategy: rolling
   prod:
-    account: dev
+    account: dev-cluster
     namespace: potato-facts-prod
     strategy: rolling
     constraints:

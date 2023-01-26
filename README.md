@@ -27,4 +27,4 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 
 3. **Deploy:**
 
-    The [hello-world](/hello-world/README.md) tutorial is a great place to start. Happy deploying!
+    The [hello-armory](/hello-armory/README.md) tutorial is a great place to start. Happy deploying!
