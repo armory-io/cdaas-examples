@@ -1,0 +1,26 @@
+version: v1
+kind: kubernetes
+application: potato-facts
+targets:
+  staging:
+    account: dev
+    namespace: potato-facts-staging
+    strategy: rolling
+  prod:
+    account: dev
+    namespace: potato-facts-prod
+    strategy: rolling
+    constraints:
+      dependsOn: ["staging"]
+manifests:
+  - path: ./manifests/potato-facts.yaml
+  - path: ./manifests/staging-namespace.yaml
+    targets: ["staging"]
+  - path: ./manifests/prod-namespace.yaml
+    targets: ["prod"]
+strategies:
+  rolling:
+    canary:
+      steps:
+        - setWeight:
+            weight: 100
