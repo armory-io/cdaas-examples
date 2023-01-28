@@ -9,9 +9,12 @@ targets:
   prod:
     account: my-cdaas-cluster
     namespace: potato-facts-prod
-    strategy: rolling
+    strategy: trafficSplit
     constraints:
       dependsOn: ["staging"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
 manifests:
   - path: ./manifests/potato-facts.yaml
   - path: ./manifests/staging-namespace.yaml
@@ -22,5 +25,14 @@ strategies:
   rolling:
     canary:
       steps:
+        - setWeight:
+            weight: 100
+  trafficSplit:
+    canary:
+      steps:
+        - setWeight:
+            weight: 25
+        - pause:
+            untilApproved: true
         - setWeight:
             weight: 100

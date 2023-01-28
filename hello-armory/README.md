@@ -1,4 +1,4 @@
-# Hello Armory Tutorial
+# Hello Armory
 
 Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish the following:
 
@@ -9,28 +9,23 @@ Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish
 
 ### Before you begin
 
-Before you begin, clone this repository.
-
-You should also make sure you have completed the following:
+Before you begin, clone this repository and make sure you've completed the following:
 
 - Installed the `armory` CLI.
 - Logged in to or signed up for your free Armory CDaaS account using `armory login`.
-- Connected your Kubernetes cluster with an Armory agent. Your agent will have an identifier `<my-agent-identifier>` that will be referenced throughout this tutorial.
+- Connected your Kubernetes cluster with an Armory agent. Your agent will have a name `<my-agent-identifier>` that will be referenced throughout this tutorial.
 
 If you haven't completed these steps (or don't know what they mean!), follow the [Getting Started Guide](../README.md), 
 then head straight back to this tutorial.
 
 ## First deployment
 
-Armory's sample application `potato-facts` is a simple web application:
+Armory's sample application `potato-facts` is a [simple web application](https://github.com/armory-io/potato-facts-go). 
+The UI polls the API backend for facts about potatoes and renders them for users.
 
-```mermaid
-graph LR
-    A[UI] --> B[Kubernetes Service]
-    B --> C[REST API]
-```
-
-The web UI polls the API backend for facts about potatoes and renders them for users.
+Your first deployment will deploy the following resources into your Kubernetes cluster:
+- Two namespaces: `potato-facts-staging` and `potato-facts-prod`.
+- In each namespace, the `potato-facts` application and a Kubernetes `Service`.
 
 ### Deploy
 
@@ -40,18 +35,56 @@ From this directory, run the following command:
 armory deploy start -f ./first-deployment.yaml -a <my-agent-identifier>
 ```
 
-Congratulations, you've just started your first deployment with CDaaS!
+Congratulations, you've just started your first deployment with CDaaS! You can use the provided link to observe 
+your deployment's progression in [Cloud Console](https://console.cloud.armory.io/deployments). Your resources will
+be deployed to `staging`. Once those resources have deployed successfully, CDaaS will deploy to `prod`.
 
-### Deployment YAML
+## Second Deployment
 
-Your application is now being deployed in two Kubernetes namespaces. Use this time to familiarize yourself with 
-CDaaS's deployment YAML. 
+CDaaS is designed to help you build safety into your application deployment process. It does so by giving you 
+declarative levers to control the scope of your deployment. 
+
+CDaaS has four kinds of constraints that you can use to control your deployment:
+
+- Manual Approvals
+- Timed Pauses
+- [Webhooks](https://docs.armory.io/cd-as-a-service/tasks/webhook-approval/)
+- [Automated Canary Analysis](https://docs.armory.io/cd-as-a-service/setup/canary/)
+
+You can use these constraints _between_ environments and _within_ environments:
+
+- During your next deployment, you will need to issue a manual approval between `staging` and `prod`. 
+- Within the `prod` deployment, CDaaS will create a 25/75% traffic split between your application versions. CDaaS will wait for your approval before continuing the deployment.
+
+### Deploy
+
+Before you deploy, use `kubectl` to port-forward `potato-facts` locally:
+
+```shell
+kubectl port-forward -n potato-facts-prod service/potato-facts 9001:9001
+```
+
+Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph shows the split between
+facts fetched from Kubernetes `ReplicaSets`. 
+
+Start your second deployment by run the following command from this directory:
+
+```shell
+armory deploy start -f ./second-deployment.yaml -a <my-agent-identifier>
+```
+
+Use the provided link to navigate to your deployment in Cloud Console.
+
+## Deployment YAML
+
+Now that you've used CDaaS to deploy to two environments, let's break down CDaaS's deployment YAML. You can find 
+the [full specification on our docs site](https://docs.armory.io/cd-as-a-service/reference/ref-deployment-file/).
 
 ### `targets`
 
-In CDaaS, a `target` is an `(account, namespace)` pair where the account is the name of your agent identifier. 
+In CDaaS, a `target` is an `(account, namespace)` pair where `account` is the name of your agent identifier.
 
-When deploying to multiple targets, you can specify dependencies between targets 
+When deploying to multiple targets, you can specify dependencies between targets
 using the `constraints.dependsOn` field. In the case of this tutorial, the `prod` deployment will start only when the `staging`
 deployment has completed successfully.
 
@@ -65,16 +98,19 @@ targets:
     strategy: rolling
   prod:
     namespace: potato-facts-prod
-    strategy: rolling
+    strategy: trafficSplit
     constraints:
       dependsOn: ["staging"]
+      beforeDeployment:
+        - pause:
+            untilApproved: true
 ```
 
 ### `manifests`
 
 CDaaS can deploy any Kubernetes manifest. You do not need to alter your manifests or apply any special annotations to use CDaaS.
 
-By default, the manifests defined in `path` will be deployed to all of your `targets`. If you want to restrict the targets where a manifest 
+By default, the manifests defined in `path` will be deployed to all of your `targets`. If you want to restrict the targets where a manifest
 should be deployed, use the `manifests.targets` field.
 
 A `path` can be a path to an individual file or a directory.
@@ -90,7 +126,7 @@ manifests:
 
 ### `strategies`
 
-A `strategy` defines how manifests are deployed to a target. 
+A `strategy` defines how manifests are deployed to a target.
 
 A `canary`-type strategy is a linear sequence of steps. The `setWeight` step defines the ratio of traffic
 between application versions. This tutorial will introduce other step types later on.
@@ -106,4 +142,22 @@ strategies:
         # This strategy immediately flips all traffic to the new application version.
         - setWeight:
             weight: 100
+  trafficSplit:
+    canary:
+      steps:
+        - setWeight:
+            weight: 25
+        - pause:
+            untilApproved: true
+        - setWeight:
+            weight: 100
 ```
+
+## Clean Up
+
+Your application is now being deployed in two Kubernetes namespaces. You can clean up the tutorial with `kubectl`:
+
+```shell
+kubectl delete ns potato-facts-staging potato-facts-prod
+```
+

@@ -19,7 +19,7 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 
 2. **Sign up:**
 
-    It's free to try Armory CDaaS. Run the following command to sign up:
+    It's free to try Armory CDaaS:
 
     ```shell
     armory login
@@ -31,8 +31,6 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
     
     CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
     to be publicly accessible to use CDaaS.  
-
-    <br/>
 
     Run the following command to install an agent in your Kubernetes cluster:
 
