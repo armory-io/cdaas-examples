@@ -2,8 +2,8 @@
 
 Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish the following:
 
-- Deploy Armory's sample application `potato-facts` to staging and production.
-- Use Armory cloud console to approve an environment promotion.
+- Deploy Armory's sample application `potato-facts` to two environments: staging and production.
+- Use Armory's Cloud Console to approve an environment promotion.
 - Observe a traffic split between two application versions.
 - Learn CDaaS deployment YAML syntax.
 
@@ -49,7 +49,7 @@ CDaaS's deployment YAML.
 
 ### `targets`
 
-In CDaaS, a `target` is an `(account, namespace)` pair, where the account is the name of your agent identifier. 
+In CDaaS, a `target` is an `(account, namespace)` pair where the account is the name of your agent identifier. 
 
 When deploying to multiple targets, you can specify dependencies between targets 
 using the `constraints.dependsOn` field. In the case of this tutorial, the `prod` deployment will start only when the `staging`

@@ -1,3 +1,14 @@
+<style>
+    img[alt="Armory Logo"]{ 
+        height: 100px; 
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+![Armory Logo](./assets/armory.svg)
+
 # Armory CDaaS Examples
 
 This repository contains example deployments and walkthroughs for [Armory Continuous Deployments-as-a-Service](https://docs.armory.io/cd-as-a-service/).
@@ -23,8 +34,21 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
     armory login
     ```
 
-    Confirm the device code in your browser when prompted, then sign up for an Armory CDaaS account.
+    Confirm the device code in your browser when prompted, sign up for an Armory CDaaS account, then return to this guide.
 
-3. **Deploy:**
+3. **Connect your cluster:**
+    
+    CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
+    to be publicly accessible to use CDaaS.  
 
-    The [hello-armory](/hello-armory/README.md) tutorial is a great place to start. Happy deploying!
+    <br/>
+
+    Run the following command to install an agent in your Kubernetes cluster:
+
+    ```shell
+    armory agent install
+    ```
+
+4. **Deploy:**
+
+    The [hello-armory](/hello-armory) tutorial is a great place to start. Happy deploying!
