@@ -1,12 +1,3 @@
-<style>
-    img[alt="Armory Logo"]{ 
-        height: 100px; 
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-
 ![Armory Logo](./assets/armory.svg)
 
 # Armory CDaaS Examples
