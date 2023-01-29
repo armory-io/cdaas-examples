@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: potato-facts
-          image: index.docker.io/armory/potatofacts:latest
+          image: index.docker.io/armory/potatofacts:v2
           env:
             - name: APPLICATION_NAME
               value: potatofacts
@@ -33,14 +33,3 @@ spec:
               path: /api/health/liveness
               port: 9001
               scheme: HTTP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: potato-facts
-spec:
-  selector:
-    app: potato-facts
-  ports:
-    - protocol: TCP
-      port: 9001

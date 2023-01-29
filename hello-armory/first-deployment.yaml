@@ -13,7 +13,8 @@ targets:
     constraints:
       dependsOn: ["staging"]
 manifests:
-  - path: ./manifests/potato-facts.yaml
+  - path: ./manifests/potato-facts-v1.yaml
+  - path: ./manifests/potato-facts-service.yaml
   - path: ./manifests/staging-namespace.yaml
     targets: ["staging"]
   - path: ./manifests/prod-namespace.yaml

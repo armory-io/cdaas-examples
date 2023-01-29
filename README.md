@@ -40,4 +40,4 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 
 4. **Deploy:**
 
-    The [hello-armory](/hello-armory) tutorial is a great place to start. Happy deploying!
+    The [Hello Armory](/hello-armory) tutorial is a great place to start. Happy deploying!

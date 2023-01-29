@@ -35,9 +35,10 @@ From this directory, run the following command:
 armory deploy start -f ./first-deployment.yaml -a <my-agent-identifier>
 ```
 
-Congratulations, you've just started your first deployment with CDaaS! You can use the provided link to observe 
-your deployment's progression in [Cloud Console](https://console.cloud.armory.io/deployments). Your resources will
-be deployed to `staging`. Once those resources have deployed successfully, CDaaS will deploy to `prod`.
+Congratulations, you've just started your first deployment with CDaaS! 
+
+You can use the link provided by the CLI to observe your deployment's progression in [Cloud Console](https://console.cloud.armory.io/deployments). 
+Your resources will be deployed to `staging`. Once those resources have deployed successfully, CDaaS will deploy to `prod`.
 
 ## Second Deployment
 
@@ -64,8 +65,8 @@ Before you deploy, use `kubectl` to port-forward `potato-facts` locally:
 kubectl port-forward -n potato-facts-prod service/potato-facts 9001:9001
 ```
 
-Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph shows the split between
-facts fetched from Kubernetes `ReplicaSets`. 
+Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph plots the ratio of
+potato facts served by a given Kubernetes `ReplicaSet`. This ratio will change as your deployment progresses.
 
 Start your second deployment by run the following command from this directory:
 
@@ -73,12 +74,20 @@ Start your second deployment by run the following command from this directory:
 armory deploy start -f ./second-deployment.yaml -a <my-agent-identifier>
 ```
 
-Use the provided link to navigate to your deployment in Cloud Console.
+Use the link provided by the CLI to navigate to your deployment in Cloud Console. Once you're ready, click the "Approve" button
+to allow the `prod` deployment to continue.
+
+Return to the [`potato-facts` UI](http://localhost:9001/ui). CDaaS will deploy a new `ReplicaSet` with only one pod
+to achieve a 25/75% traffic split between application versions. The ratio of facts served by `ReplicaSet` backends in the graph 
+should begin to approach this 25/75% split.
+
+Once you're ready to continue, return to Cloud Console to approve the `prod` deployment. CDaaS will fully shift traffic to the new
+application version and tear down the previous application version.
 
 ## Deployment YAML
 
 Now that you've used CDaaS to deploy to two environments, let's break down CDaaS's deployment YAML. You can find 
-the [full specification on our docs site](https://docs.armory.io/cd-as-a-service/reference/ref-deployment-file/).
+the [full specification on our docs site](https://docs.armory.io/cd-as-a-service/reference/ref-deployment-file/#sections).
 
 ### `targets`
 
@@ -117,7 +126,8 @@ A `path` can be a path to an individual file or a directory.
 
 ```yaml
 manifests:
-  - path: ./manifests/potato-facts.yaml
+  - path: ./manifests/potato-facts-v1.yaml
+  - path: ./manifests/potato-facts-service.yaml
   - path: ./manifests/staging-namespace.yaml
     targets: ["staging"]
   - path: ./manifests/prod-namespace.yaml
@@ -131,7 +141,8 @@ A `strategy` defines how manifests are deployed to a target.
 A `canary`-type strategy is a linear sequence of steps. The `setWeight` step defines the ratio of traffic
 between application versions. This tutorial will introduce other step types later on.
 
-CDaaS integrates with service meshes like Istio and Linkerd,
+CDaaS integrates with service meshes like [Istio](https://docs.armory.io/cd-as-a-service/tasks/deploy/traffic-management/istio/) 
+and [Linkerd](https://docs.armory.io/cd-as-a-service/tasks/deploy/traffic-management/linkerd/), 
 but you do not need to use a service mesh to use a CDaaS `canary` strategy.
 
 ```yaml
@@ -155,7 +166,7 @@ strategies:
 
 ## Clean Up
 
-Your application is now being deployed in two Kubernetes namespaces. You can clean up the tutorial with `kubectl`:
+You can clean up the resources created by this tutorial with `kubectl`:
 
 ```shell
 kubectl delete ns potato-facts-staging potato-facts-prod

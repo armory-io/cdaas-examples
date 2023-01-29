@@ -16,7 +16,8 @@ targets:
         - pause:
             untilApproved: true
 manifests:
-  - path: ./manifests/potato-facts.yaml
+  - path: ./manifests/potato-facts-v2.yaml
+  - path: ./manifests/potato-facts-service.yaml
   - path: ./manifests/staging-namespace.yaml
     targets: ["staging"]
   - path: ./manifests/prod-namespace.yaml
