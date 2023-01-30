@@ -2,7 +2,7 @@
 
 Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish the following:
 
-- Deploy Armory's sample application `potato-facts` to two environments: staging and production.
+- Deploy Armory's sample application `potato-facts` to two environments: `staging` and `prod`.
 - Use Armory's Cloud Console to approve an environment promotion.
 - Observe a traffic split between two application versions.
 - Learn CDaaS deployment YAML syntax.
@@ -122,7 +122,7 @@ CDaaS can deploy any Kubernetes manifest. You do not need to alter your manifest
 By default, the manifests defined in `path` will be deployed to all of your `targets`. If you want to restrict the targets where a manifest
 should be deployed, use the `manifests.targets` field.
 
-A `path` can be a path to an individual file or a directory.
+A `path` can be a path to an individual file or a directory. Each file can contain one or more Kubernetes manifests.
 
 ```yaml
 manifests:
