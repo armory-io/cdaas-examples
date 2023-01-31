@@ -68,7 +68,7 @@ kubectl port-forward -n potato-facts-prod service/potato-facts 9001:9001
 Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph plots the ratio of
 potato facts served by a given Kubernetes `ReplicaSet`. This ratio will change as your deployment progresses.
 
-Start your second deployment by run the following command from this directory:
+Start your second deployment by running the following command from this directory:
 
 ```shell
 armory deploy start -f ./second-deployment.yaml -a <my-agent-identifier>
