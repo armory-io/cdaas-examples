@@ -55,7 +55,7 @@ Before you begin, make sure you've completed these steps:
 
    You will name your agent during the installation process. That name will be referenced as `<my-agent-identifier>` throughout this tutorial.
 
-## First deployment
+## First Deployment
 
 Armory's sample application `potato-facts` is a [simple web application](https://github.com/armory-io/potato-facts-go). 
 The UI polls the API backend for facts about potatoes and renders them for users.
