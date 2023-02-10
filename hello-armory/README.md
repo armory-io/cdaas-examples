@@ -53,7 +53,7 @@ Before you begin, make sure you've completed these steps:
     armory agent install
     ```
 
-   Your agent will have a name `<my-agent-identifier>` that will be referenced throughout this tutorial.
+   You will name your agent during the installation process. That name will be referenced as `<my-agent-identifier>` throughout this tutorial.
 
 ## First deployment
 
@@ -69,7 +69,7 @@ Your first deployment will deploy the following resources into your Kubernetes c
 Run the following command:
 
 ```shell
-armory deploy start -f https://go.armory.io/hello-armory:first-deployment --account <my-agent-identifier>
+armory deploy start -f https://go.armory.io/hello-armory-first-deployment --account <my-agent-identifier>
 ```
 
 Congratulations, you've just started your first deployment with CDaaS! 
@@ -109,7 +109,7 @@ Start your second deployment by running the following command from this director
 
 ```shell
 
-armory deploy start -f https://go.armory.io/hello-armory:second-deployment -a <my-agent-identifier>
+armory deploy start -f https://go.armory.io/hello-armory-second-deployment --account <my-agent-identifier>
 ```
 
 Use the link provided by the CLI to navigate to your deployment in Cloud Console. Once you're ready, click the "Approve" button
