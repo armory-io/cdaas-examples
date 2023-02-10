@@ -9,14 +9,51 @@ Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish
 
 ### Before you begin
 
-Before you begin, clone this repository and make sure you've completed the following:
+Before you begin, make sure you've completed these steps:
 
-- Installed the `armory` CLI.
-- Logged in to or signed up for your free Armory CDaaS account using `armory login`.
-- Connected your Kubernetes cluster with an Armory agent. Your agent will have a name `<my-agent-identifier>` that will be referenced throughout this tutorial.
+1. **Install:**
 
-If you haven't completed these steps (or don't know what they mean!), follow the [Getting Started Guide](../README.md), 
-then head straight back to this tutorial.
+   Install `armory` on Mac OS using [Homebrew](https://brew.sh/):
+
+    ```shell
+   brew tap armory-io/armory
+   brew install armory-cli
+   ```
+
+   To install `armory` on Windows or Linux, run the following command:
+
+    ```shell
+    curl -sL go.armory.io/get-cli | bash
+    ```
+
+   The script will install `armory` and `avm`. You can use `avm` (**A**rmory **V**ersion **M**anager) to manage your `armory` version.
+
+
+3. **Log In**
+    
+    Log in with the CLI:
+
+    ```shell
+    armory login
+    ```
+    
+    Confirm the device code in your browser when prompted, then return to this guide. 
+
+    If you've arrived at this tutorial without an Armory CDaaS account, that's OK! You can sign up for a free account when you run `armory login`.
+
+
+5. **Connect your cluster:**
+
+   CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
+   to be publicly accessible to use CDaaS.
+
+   Run the following command to install an agent in your Kubernetes cluster:
+
+    ```shell
+    armory agent install
+    ```
+
+   Your agent will have a name `<my-agent-identifier>` that will be referenced throughout this tutorial.
 
 ## First deployment
 
@@ -29,10 +66,10 @@ Your first deployment will deploy the following resources into your Kubernetes c
 
 ### Deploy
 
-From this directory, run the following command:
+Run the following command:
 
 ```shell
-armory deploy start -f ./first-deployment.yaml -a <my-agent-identifier>
+armory deploy start -f https://go.armory.io/hello-armory:first-deployment --account <my-agent-identifier>
 ```
 
 Congratulations, you've just started your first deployment with CDaaS! 
@@ -71,7 +108,8 @@ potato facts served by a given Kubernetes `ReplicaSet`. This ratio will change a
 Start your second deployment by running the following command from this directory:
 
 ```shell
-armory deploy start -f ./second-deployment.yaml -a <my-agent-identifier>
+
+armory deploy start -f https://go.armory.io/hello-armory:second-deployment -a <my-agent-identifier>
 ```
 
 Use the link provided by the CLI to navigate to your deployment in Cloud Console. Once you're ready, click the "Approve" button

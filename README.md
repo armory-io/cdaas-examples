@@ -8,8 +8,15 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 ## Getting Started
 
 1. **Install:**
+    
+    Install `armory` on Mac OS using [Homebrew](https://brew.sh/):
 
-    To install `armory`, run the following:
+    ```shell
+   brew tap armory-io/armory
+   brew install armory-cli
+   ```
+
+    To install `armory` on Windows or Linux, run the following:
 
     ```shell
     curl -sL go.armory.io/get-cli | bash
@@ -17,7 +24,8 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 
     The script will install `armory` and `avm`. You can use `avm` (**A**rmory **V**ersion **M**anager) to manage your `armory` version. 
 
-2. **Sign up:**
+
+3. **Sign up:**
 
     It's free to try Armory CDaaS:
 
@@ -27,7 +35,8 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 
     Confirm the device code in your browser when prompted, sign up for an Armory CDaaS account, then return to this guide.
 
-3. **Connect your cluster:**
+
+5. **Connect your cluster:**
     
     CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
     to be publicly accessible to use CDaaS.  
@@ -38,6 +47,6 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
     armory agent install
     ```
 
-4. **Deploy:**
+6. **Deploy:**
 
     The [Hello Armory](/hello-armory) tutorial is a great place to start. Happy deploying!

@@ -16,11 +16,13 @@ targets:
         - pause:
             untilApproved: true
 manifests:
-  - path: ./manifests/potato-facts-v2.yaml
-  - path: ./manifests/potato-facts-service.yaml
-  - path: ./manifests/staging-namespace.yaml
+  # This tutorial uses URLs to ensure a simple first-time deployment experience.
+  # You can also use relative file paths to define manifest locations.
+  - path: https://raw.githubusercontent.com/armory-io/cdaas-examples/main/hello-armory/manifests/potato-facts-v2.yaml
+  - path: https://raw.githubusercontent.com/armory-io/cdaas-examples/main/hello-armory/manifests/potato-facts-service.yaml
+  - path: https://raw.githubusercontent.com/armory-io/cdaas-examples/main/hello-armory/manifests/staging-namespace.yaml
     targets: ["staging"]
-  - path: ./manifests/prod-namespace.yaml
+  - path: https://raw.githubusercontent.com/armory-io/cdaas-examples/main/hello-armory/manifests/prod-namespace.yaml
     targets: ["prod"]
 strategies:
   rolling:
