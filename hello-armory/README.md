@@ -45,7 +45,11 @@ Before you begin, make sure you've completed these steps:
 5. **Connect your cluster:**
 
    CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
-   to be publicly accessible to use CDaaS.
+   to be publicly accessible to use CDaaS. 
+
+   The installation process will use credentials from your `~/.kube/config` file to install the CDaaS agent. If you
+   do not have access to a Kubernetes cluster, consider installing a 
+   local [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or [Minikube](https://minikube.sigs.k8s.io/docs/start/) cluster.
 
    Run the following command to install an agent in your Kubernetes cluster:
 
@@ -62,7 +66,7 @@ The UI polls the API backend for facts about potatoes and renders them for users
 
 Your first deployment will deploy the following resources into your Kubernetes cluster:
 - Two namespaces: `potato-facts-staging` and `potato-facts-prod`.
-- In each namespace, the `potato-facts` application and a Kubernetes `Service`.
+- In each namespace, the `potato-facts` application, a Kubernetes `Service`, and a proxy pod that you will use to preview `potato-facts` during a deployment.
 
 ### Deploy
 
@@ -99,8 +103,12 @@ You can use these constraints _between_ environments and _within_ environments:
 Before you deploy, use `kubectl` to port-forward `potato-facts` locally:
 
 ```shell
-kubectl port-forward -n potato-facts-prod service/potato-facts 9001:9001
+kubectl port-forward -n potato-facts-prod proxy 9001:9001
 ```
+
+_Why do we need to use a proxy `Pod`?_ `kubectl` only port-forwards to individual `Pod`s, 
+even when the forwarding target is a `Service`. This makes it impossible to observe a traffic split locally without
+a layer of indirection.  
 
 Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph plots the ratio of
 potato facts served by a given Kubernetes `ReplicaSet`. This ratio will change as your deployment progresses.
