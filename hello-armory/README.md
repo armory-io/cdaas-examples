@@ -50,7 +50,7 @@ Before you begin, make sure you've completed these steps:
    Run the following command to install an agent in your Kubernetes cluster:
 
     ```shell
-    armory agent install
+    armory agent create
     ```
 
    You will name your agent during the installation process. That name will be referenced as `<my-agent-identifier>` throughout this tutorial.

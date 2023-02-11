@@ -44,7 +44,7 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
     Run the following command to install an agent in your Kubernetes cluster:
 
     ```shell
-    armory agent install
+    armory agent create
     ```
 
 6. **Deploy:**
