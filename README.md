@@ -39,7 +39,7 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
 5. **Connect your cluster:**
     
     CDaaS uses an agent to execute deployments in your Kubernetes cluster. Your cluster's API endpoint does not need
-    to be publicly accessible to use CDaaS.  
+    to be publicly accessible to use CDaaS. Learn more about CDaaS [architecture](https://docs.armory.io/cd-as-a-service/concepts/architecture).
 
     Run the following command to install an agent in your Kubernetes cluster:
 
