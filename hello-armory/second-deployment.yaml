@@ -35,6 +35,12 @@ strategies:
       steps:
         - setWeight:
             weight: 25
+        - exposeServices:
+            services:
+              - potato-facts
+            ttl:
+              duration: 2
+              unit: hours
         - pause:
             untilApproved: true
         - setWeight:
