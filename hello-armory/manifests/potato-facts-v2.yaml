@@ -25,11 +25,11 @@ spec:
               containerPort: 9001
           readinessProbe:
             httpGet:
-              path: /api/health/readiness
+              path: /health/readiness
               port: 9001
               scheme: HTTP
           livenessProbe:
             httpGet:
-              path: /api/health/liveness
+              path: /health/liveness
               port: 9001
               scheme: HTTP
