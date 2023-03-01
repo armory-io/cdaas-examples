@@ -20,7 +20,7 @@ Before you begin, make sure you've completed these steps:
    brew install armory-cli
    ```
 
-   To install `armory` on Windows or Linux, run the following command:
+   To install `armory` on Linux, run the following command:
 
     ```shell
     curl -sL go.armory.io/get-cli | bash
