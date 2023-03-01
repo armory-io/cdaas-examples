@@ -66,7 +66,7 @@ The UI polls the API backend for facts about potatoes and renders them for users
 
 Your first deployment will deploy the following resources into your Kubernetes cluster:
 - Two namespaces: `potato-facts-staging` and `potato-facts-prod`.
-- In each namespace, the `potato-facts` application, a Kubernetes `Service`, and a proxy pod that you will use to preview `potato-facts` during a deployment.
+- In each namespace, the `potato-facts` application and a Kubernetes `Service`.
 
 ### Deploy
 
@@ -100,32 +100,21 @@ You can use these constraints _between_ environments and _within_ environments:
 
 ### Deploy
 
-Before you deploy, use `kubectl` to port-forward `potato-facts` locally:
-
-```shell
-kubectl port-forward -n potato-facts-prod proxy 9001:9001
-```
-
-_Why do we need to use a proxy `Pod`?_ `kubectl` only port-forwards to individual `Pod`s, 
-even when the forwarding target is a `Service`. This makes it impossible to observe a traffic split locally without
-a layer of indirection.  
-
-Open `potato-facts` at [http://localhost:9001/ui](http://localhost:9001/ui). The graph plots the ratio of
-potato facts served by a given Kubernetes `ReplicaSet`. This ratio will change as your deployment progresses.
-
 Start your second deployment:
 
 ```shell
-
 armory deploy start -f https://go.armory.io/hello-armory-second-deployment --account <my-agent-identifier>
 ```
 
-Use the link provided by the CLI to navigate to your deployment in Cloud Console. Once you're ready, click the "Approve" button
-to allow the `prod` deployment to continue.
+Use the link provided by the CLI to navigate to your deployment in Cloud Console. 
 
-Return to the [`potato-facts` UI](http://localhost:9001/ui). CDaaS will deploy a new `ReplicaSet` with only one pod
-to achieve a 25/75% traffic split between application versions. The ratio of facts served by `ReplicaSet` backends in the graph 
-should begin to approach this 25/75% split.
+Once the `staging` deployment has completed, click "Approve" to allow the `prod` deployment to begin.
+
+Click on the `prod` deployment, then click on the `potato-facts` link under "Resources." This will open a preview link of
+`potato-facts`. The app's graph plots the ratio of facts served by a given Kubernetes `ReplicaSet`.
+
+CDaaS has deployed a new `ReplicaSet` with only one pod to achieve a 25/75% traffic split between application versions. The ratio of facts served by `ReplicaSet` backends in the graph 
+should roughly match this 25/75% split.
 
 Once you're ready to continue, return to Cloud Console to approve the `prod` deployment. CDaaS will fully shift traffic to the new
 application version and tear down the previous application version.
@@ -204,6 +193,12 @@ strategies:
       steps:
         - setWeight:
             weight: 25
+        - exposeServices:
+            services:
+              - potato-facts
+            ttl:
+              duration: 2
+              unit: hours
         - pause:
             untilApproved: true
         - setWeight:
