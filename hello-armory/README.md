@@ -106,12 +106,13 @@ Start your second deployment:
 armory deploy start -f https://go.armory.io/hello-armory-second-deployment --account <my-agent-identifier>
 ```
 
-Use the link provided by the CLI to navigate to your deployment in Cloud Console. 
+Use the link provided by the CLI to navigate to your deployment in Cloud Console. Once the `staging` deployment has completed, click "Approve" to allow the `prod` deployment to begin.
 
-Once the `staging` deployment has completed, click "Approve" to allow the `prod` deployment to begin.
+Click on the `prod` deployment, then click on the `potato-facts` link under "Resources":
 
-Click on the `prod` deployment, then click on the `potato-facts` link under "Resources." This will open a preview link of
-`potato-facts`. The app's graph plots the ratio of facts served by a given Kubernetes `ReplicaSet`.
+![Screenshot of preview link](./assets/preview.png)
+
+This will open a preview of `potato-facts`. The app's graph plots the ratio of facts served by a given Kubernetes `ReplicaSet`.
 
 CDaaS has deployed a new `ReplicaSet` with only one pod to achieve a 25/75% traffic split between application versions. The ratio of facts served by `ReplicaSet` backends in the graph 
 should roughly match this 25/75% split.
