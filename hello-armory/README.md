@@ -1,6 +1,6 @@
 # Hello Armory
 
-Welcome to Armory CDaaS! In this tutorial for CDaaS beginners, you'll accomplish the following:
+Welcome to Armory Continuous-Delivery-as-a-Service! In this tutorial for CDaaS beginners, you'll accomplish the following:
 
 - Deploy Armory's sample application `potato-facts` to two environments: `staging` and `prod`.
 - Use Armory's Cloud Console to approve an environment promotion.
