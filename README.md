@@ -16,7 +16,7 @@ CDaaS is a tool for safely deploying artifacts like Docker images and Kubernetes
    brew install armory-cli
    ```
 
-    To install `armory` on Windows or Linux, run the following:
+    To install `armory` on Linux, run the following:
 
     ```shell
     curl -sL go.armory.io/get-cli | bash
