@@ -28,7 +28,7 @@ Before you begin, make sure you've completed these steps:
    The script will install `armory` and `avm`. You can use `avm` (**A**rmory **V**ersion **M**anager) to manage your `armory` version.
 
 
-3. **Log In**
+3. **Log in:**
     
     Log in with the CLI:
 
