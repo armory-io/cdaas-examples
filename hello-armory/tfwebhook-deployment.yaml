@@ -105,3 +105,10 @@ webhooks:
             }
         }
     retryCount: 3
+
+strategies:
+  rolling:
+    canary:
+      steps:
+        - setWeight:
+            weight: 100
