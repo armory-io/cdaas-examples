@@ -46,7 +46,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: {{secrets.tf_token}}
+        value: Bearer {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
@@ -64,7 +64,7 @@ webhooks:
                     "workspace": {
                         "data": {
                             "type": "workspaces",
-                            "id": "{{secrets.TF_WS_ID}}"
+                            "id": {{secrets.TF_WS_ID}}
                         }
                     }
                 },
@@ -79,7 +79,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: {{secrets.tf_token}}
+        value: Bearer {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
@@ -97,7 +97,7 @@ webhooks:
                     "workspace": {
                         "data": {
                             "type": "workspaces",
-                            "id": "{{secrets.TF_WS_ID}}"
+                            "id": {{secrets.TF_WS_ID}}
                         }
                     }
                 },
