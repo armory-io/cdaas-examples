@@ -4,7 +4,7 @@ application: potato-facts
 # targets start ----------------------------------------------------------------
 targets:
   staging:
-    account: my-cdaas-cluster
+    account: kind-matt-cluster-1
     namespace: potato-facts-staging
     strategy: rolling
     constraints:
@@ -15,7 +15,7 @@ targets:
             duration: 1
             unit: seconds        
   prod:
-    account: my-cdaas-cluster
+    account: kind-matt-cluster-1
     namespace: potato-facts-prod
     strategy: rolling
     constraints:
