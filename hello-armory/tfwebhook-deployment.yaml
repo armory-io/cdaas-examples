@@ -8,7 +8,7 @@ targets:
     namespace: potato-facts-staging
     strategy: rolling
     constraints:
-      afterDeployment:
+      beforeDeployment:
         - runWebhook:
             name: Call_TF_Destory_Job
         - pause:
@@ -20,7 +20,7 @@ targets:
     strategy: rolling
     constraints:
       dependsOn: ["staging"]
-      afterDeployment:
+      beforeDeployment:
         - runWebhook:
             name: Call_TF_Run_Job
         - pause:
@@ -46,7 +46,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: token {{secrets.github_token}}
+        value: token {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
@@ -79,7 +79,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: token {{secrets.github_token}}
+        value: token {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
