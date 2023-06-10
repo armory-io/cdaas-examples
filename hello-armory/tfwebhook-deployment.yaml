@@ -64,7 +64,7 @@ webhooks:
                     "workspace": {
                         "data": {
                             "type": "workspaces",
-                            "id": {{secrets.TF_WS_ID}}
+                            "id": "ws-zemTyWM6PsWtf39t"
                         }
                     }
                 },
@@ -97,7 +97,7 @@ webhooks:
                     "workspace": {
                         "data": {
                             "type": "workspaces",
-                            "id": {{secrets.TF_WS_ID}}
+                            "id": "ws-zemTyWM6PsWtf39t"
                         }
                     }
                 },
