@@ -46,7 +46,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: token {{secrets.tf_token}}
+        value: {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
@@ -79,7 +79,7 @@ webhooks:
     networkMode: direct
     headers:
       - key: Authorization
-        value: token {{secrets.tf_token}}
+        value: {{secrets.tf_token}}
 
       - key: Content-Type
         value: application/vnd.api+json
