@@ -12,7 +12,7 @@ targets:
         - runWebhook:
             name: Call_TF_Destory_Job
         - pause:
-            duration: 1
+            duration: 10
             unit: seconds        
   prod:
     account: kind-matt-cluster-1
@@ -44,6 +44,7 @@ webhooks:
     method: POST
     uriTemplate: https://app.terraform.io/api/v2/runs
     networkMode: direct
+    disableCallback: true
     headers:
       - key: Authorization
         value: Bearer {{secrets.tf_token}}
@@ -77,6 +78,7 @@ webhooks:
     method: POST
     uriTemplate: https://app.terraform.io/api/v2/runs
     networkMode: direct
+    disableCallback: true
     headers:
       - key: Authorization
         value: Bearer {{secrets.tf_token}}
